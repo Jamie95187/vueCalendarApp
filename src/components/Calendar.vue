@@ -106,7 +106,28 @@
 
 <script>
   export default {
-
+    data: () => ({
+      today: new Date().toISOString().substr(0, 10),
+      focus: new Date().toISOString().substr(0, 10),
+      type: "month",
+      typeToLabel: {
+        month: "Month",
+        week: "Week",
+        day: "Day",
+        "4day": "4 Days"
+      },
+      name: null,
+      details: null,
+      start: null,
+      end: null,
+      colour: "#1976D2",
+      currentlyEditing: null,
+      selectedEvent: {},
+      selectedElement: null,
+      selectedOpen: false,
+      events: [],
+      dialog: false
+    })
   }
 </script>
 
