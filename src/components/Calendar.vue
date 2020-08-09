@@ -3,6 +3,9 @@
     <v-col>
       <v-sheet height="64">
         <v-toolbar flat color="white">
+          <v-btn color="primary" class="mr-4" dark @click="dialog = true">
+            New Event
+          </v-btn>
           <v-btn outlined class="mr-4" color="grey darken-2" @click="setToday">
             Today
           </v-btn>
@@ -45,6 +48,25 @@
           </v-menu>
         </v-toolbar>
       </v-sheet>
+
+      <!-- Add event dialog -->
+      <v-dialog v-model="dialog" max-width="500">
+        <v-card>
+          <v-container>
+            <v-form @submit.prevent="addEvent">
+              <v-text-field v-model="name" type="text" label="event name (required)"></v-text-field>
+              <v-text-field v-model="details" type="text" label="details"></v-text-field>
+              <v-text-field v-model="start" type="date" label="start (required)"></v-text-field>
+              <v-text-field v-model="end" type="date" label="end (required)"></v-text-field>
+              <v-text-field v-model="color" type="color" label="colour (click to open colour menu)"></v-text-field>
+              <v-btn type="submit" colour="primary" class="mr-4" @click.stop="dialog=false">
+                Create Event
+              </v-btn>
+            </v-form>
+          </v-container>
+        </v-card>
+      </v-dialog>
+
       <v-sheet height="600">
         <v-calendar
           ref="calendar"
@@ -165,6 +187,25 @@ import { db } from '../main';
         });
         this.events = events;
       },
+      async addEvent() {
+        if(this.name && this.start && this.end) {
+          await db.collection('calEvent').add({
+            name: this.name,
+            details: this.details,
+            start: this.start,
+            end: this.end,
+            colour: this.colour
+          });
+          this.getEvents();
+          this.name = "";
+          this.details = "";
+          this.start = "";
+          this.end = "";
+          this.colour = "";
+        } else {
+          alert('Name, start and end date are required');
+        }
+      },
       async updateEvent(ev) {
         await db.collection('calEvent').doc(this.currentlyEditing).update({
           details: ev.details
@@ -177,7 +218,7 @@ import { db } from '../main';
 
         this.selectedOpen = false;
         this.getEvents();
-      }
+      },
       getEventColor(ev) {
         return ev.colour;
       },
