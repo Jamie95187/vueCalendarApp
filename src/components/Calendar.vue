@@ -85,7 +85,7 @@
               </form>
               <form v-else>
                 <textarea-autosize
-                  v-mdoel="selectedEvent.details"
+                  v-model="selectedEvent.details"
                   type="text"
                   style="width: 100%"
                   :min-height="100"
@@ -181,6 +181,9 @@ import { db } from '../main';
       next () {
         this.$refs.calendar.next()
       },
+      editEvent(selectedEvent) {
+        this.currentlyEditing = selectedEvent.id;
+      },
       showEvent ({ nativeEvent, event }) {
         const open = () => {
           this.selectedEvent = event
@@ -198,7 +201,6 @@ import { db } from '../main';
         nativeEvent.stopPropagation()
       },
       updateRange ({ start, end }) {
-
         this.start = start
         this.end = end
       },
