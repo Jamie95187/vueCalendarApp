@@ -172,6 +172,12 @@ import { db } from '../main';
         this.selectedOpen = false;
         this.currentlyEditing == null;
       },
+      async deleteEvent(ev) {
+        await db.collection('calEvent').doc(ev).delete();
+
+        this.selectedOpen = false;
+        this.getEvents();
+      }
       getEventColor(ev) {
         return ev.colour;
       },
