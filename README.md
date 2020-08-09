@@ -1,5 +1,7 @@
 # vue-calendar
 
+A calendar component where users can add, edit and delete events to keep a personalised diary. Database hosted on firebase
+
 ## Project setup
 ```
 npm install
@@ -14,11 +16,3 @@ npm run serve
 ```
 npm run build
 ```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
