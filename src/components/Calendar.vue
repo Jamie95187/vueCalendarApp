@@ -58,8 +58,8 @@
               <v-text-field v-model="details" type="text" label="details"></v-text-field>
               <v-text-field v-model="start" type="date" label="start (required)"></v-text-field>
               <v-text-field v-model="end" type="date" label="end (required)"></v-text-field>
-              <v-text-field v-model="color" type="color" label="colour (click to open colour menu)"></v-text-field>
-              <v-btn type="submit" colour="primary" class="mr-4" @click.stop="dialog=false">
+              <v-text-field v-model="color" type="color" label="color (click to open color menu)"></v-text-field>
+              <v-btn type="submit" color="primary" class="mr-4" @click.stop="dialog=false">
                 Create Event
               </v-btn>
             </v-form>
@@ -92,7 +92,7 @@
             flat
           >
             <v-toolbar
-              :color="selectedEvent.colour"
+              :color="selectedEvent.color"
               dark
             >
               <v-btn @click="deleteEvent(selectedEvent.id)" icon>
@@ -163,7 +163,7 @@ import { db } from '../main';
       details: null,
       start: null,
       end: null,
-      colour: "#1976D2",
+      color: "#1976D2",
       currentlyEditing: null,
       selectedEvent: {},
       selectedElement: null,
@@ -194,14 +194,14 @@ import { db } from '../main';
             details: this.details,
             start: this.start,
             end: this.end,
-            colour: this.colour
+            color: this.color
           });
           this.getEvents();
           this.name = "";
           this.details = "";
           this.start = "";
           this.end = "";
-          this.colour = "";
+          this.color = "";
         } else {
           alert('Name, start and end date are required');
         }
@@ -220,7 +220,7 @@ import { db } from '../main';
         this.getEvents();
       },
       getEventColor(ev) {
-        return ev.colour;
+        return ev.color;
       },
       viewDay ({ date }) {
         this.focus = date
