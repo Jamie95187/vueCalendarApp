@@ -165,6 +165,13 @@ import { db } from '../main';
         });
         this.events = events;
       },
+      async updateEvent(ev) {
+        await db.collection('calEvent').doc(this.currentlyEditing).update({
+          details: ev.details
+        });
+        this.selectedOpen = false;
+        this.currentlyEditing == null;
+      },
       getEventColor(ev) {
         return ev.colour;
       },
